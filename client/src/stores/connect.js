@@ -3,6 +3,7 @@ import url from 'url'
 import EventEmitter from 'eventemitter3'
 import Rx from 'rx-lite'
 import IOC from 'socket.io-client'
+import chalk from 'chalk'
 import { register as appRegister } from '../dispatchers/appDispatcher'
 import ACTIONS from '../actions'
 
@@ -21,6 +22,8 @@ const defaultURL = {
   slashes: true
 }
 
+var client = null
+
 
 const connectRelease = appRegister( source => {
   return source
@@ -32,16 +35,34 @@ const connectRelease = appRegister( source => {
         event.url = Object.assign( defaultURL, event.url )
       }
 
-      const client = new IOC( url.format( event.url ), {
+      const ioc = new IOC( url.format( event.url ), {
         transports: [ 'websocket' ]
       })
 
-      client.on( 'connect', () => {
+      ioc.on( 'connect', () => {
+        client = ioc    // yuck
         dispatch({
           type: ACTIONS.CONNECTED,
-          client: client
+          client: ioc
         })
       })
+    })
+})
+
+const messageRelease = appRegister( source => {
+  return source
+    .filter( event => event.type === ACTIONS.EMIT )
+    .subscribe( event => {
+      if ( !client ) {
+        return
+      }
+
+      dispatch({
+        type: ACTIONS.BROADCAST,
+        payload: '  ' + chalk.grey( event.payload )
+      })
+
+      client.emit( 'message', event.payload )
     })
 })
 

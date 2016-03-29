@@ -3,7 +3,8 @@ const ACTIONS = {
   CONNECT: 'app:connect',
   CONNECTED: 'app:connected',
 
-  BROADCAST: 'msg:broadcast'
+  BROADCAST: 'server:broadcast',
+  EMIT: 'client:emit'
 }
 
 export default ACTIONS

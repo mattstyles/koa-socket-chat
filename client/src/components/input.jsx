@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Rx from 'rx-lite'
 import { register } from '../stores/connect'
+import { dispatch } from '../dispatchers/appDispatcher'
 import ACTIONS from '../actions'
 import screen from '../core/screen'
 
@@ -22,7 +23,18 @@ export default class Input extends Component {
     this.keypress = source
       .subscribe( event => {
         if ( event.key.name === 'enter' ) {
-          // @TODO send
+          if ( !this.state.value.length ) {
+            return
+          }
+
+          dispatch({
+            type: ACTIONS.EMIT,
+            payload: this.state.value
+          })          
+
+          this.setState({
+            value: ''
+          })
           return
         }
 

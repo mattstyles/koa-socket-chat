@@ -22,7 +22,7 @@ io.on( 'connection', ctx => {
 })
 
 io.on( 'message', ( ctx, data ) => {
-  ctx.log.info( 'Received message \"', data, '\" from', ctx.socket.id )
+  ctx.log.info( ctx.socket.id, `"${ data }"` )
 })
 
 
