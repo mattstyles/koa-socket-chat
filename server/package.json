@@ -1,0 +1,46 @@
+{
+  "name": "koa-socket-chat-server",
+  "version": "0.0.0",
+  "description": "Server for koa-socket chat example",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf lib && mkdirp lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --out-dir lib --watch",
+    "reload": "supervisor -w lib -- lib | bunyan -o short",
+    "start": "( npm run watch & npm run reload )"
+  },
+  "babel": {
+    "presets": [
+      "node5"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
+  },
+  "keywords": [
+    "koa",
+    "koa-socket",
+    "socket",
+    "websocket",
+    "socket.io"
+  ],
+  "author": "Matt Styles <matt@veryfizzyjelly.com> (http://github.com/mattstyles)",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.0.0",
+    "koa-bunyan-log": "^2.0.1",
+    "koa-socket": "^4.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-plugin-transform-class-properties": "^6.6.0",
+    "babel-preset-node5": "^11.0.1",
+    "bunyan": "^1.8.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.2",
+    "supervisor": "^0.9.1"
+  }
+}
