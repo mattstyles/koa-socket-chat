@@ -30,6 +30,7 @@
   "author": "Matt Styles <matt@veryfizzyjelly.com> (http://github.com/mattstyles)",
   "license": "MIT",
   "dependencies": {
+    "env-default": "^1.0.0",
     "koa": "^2.0.0",
     "koa-bunyan-log": "^2.0.1",
     "koa-socket": "^4.2.1"
