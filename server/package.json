@@ -33,7 +33,7 @@
     "env-default": "^1.0.0",
     "koa": "^2.0.0",
     "koa-bunyan-log": "^2.0.1",
-    "koa-socket": "^4.2.1"
+    "koa-socket": "^4.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

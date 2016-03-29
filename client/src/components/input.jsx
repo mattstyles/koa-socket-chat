@@ -30,7 +30,7 @@ export default class Input extends Component {
           dispatch({
             type: ACTIONS.EMIT,
             payload: this.state.value
-          })          
+          })
 
           this.setState({
             value: ''
@@ -67,7 +67,7 @@ export default class Input extends Component {
     let props = {
       ref: 'input',
       label: ' Input ',
-      bottom: 0,
+      top: '80%',
       left: 0,
       width: '100%',
       height: '20%',

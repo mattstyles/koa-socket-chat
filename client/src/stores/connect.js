@@ -22,9 +22,38 @@ const defaultURL = {
   slashes: true
 }
 
+// @TODO this stinks, refactor
 var client = null
 
 
+/**
+ * Connection handler
+ * For now whack server events in here to
+ */
+function onConnected( ioc ) {
+  return function() {
+    client = ioc    // yuck
+    dispatch({
+      type: ACTIONS.CONNECTED,
+      client: ioc
+    })
+
+    /**
+     * Message received to room
+     */
+    ioc.on( 'message', event => {
+      dispatch({
+        type: ACTIONS.BROADCAST,
+        payload: event
+      })
+    })
+  }
+}
+
+
+/**
+ * Attempts connection when the appropriate action is called for
+ */
 const connectRelease = appRegister( source => {
   return source
     .filter( event => event.type === ACTIONS.CONNECT )
@@ -39,16 +68,13 @@ const connectRelease = appRegister( source => {
         transports: [ 'websocket' ]
       })
 
-      ioc.on( 'connect', () => {
-        client = ioc    // yuck
-        dispatch({
-          type: ACTIONS.CONNECTED,
-          client: ioc
-        })
-      })
+      ioc.on( 'connect', onConnected( ioc ) )
     })
 })
 
+/**
+ * Emits messages to the server
+ */
 const messageRelease = appRegister( source => {
   return source
     .filter( event => event.type === ACTIONS.EMIT )

@@ -21,8 +21,13 @@ io.on( 'connection', ctx => {
   logger.info( 'Connection', ctx.socket.id )
 })
 
+io.on( 'disconnect', ctx => {
+  logger.info( 'Disconnect', ctx.socket.id )
+})
+
 io.on( 'message', ( ctx, data ) => {
   ctx.log.info( ctx.socket.id, `"${ data }"` )
+  ctx.socket.broadcast( 'message', data )
 })
 
 
