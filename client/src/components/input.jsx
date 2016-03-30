@@ -22,7 +22,7 @@ export default class Input extends Component {
 
     this.keypress = source
       .subscribe( event => {
-        if ( event.key.name === 'enter' ) {
+        if ( event.key.name === 'enter' || event.key.name === 'return' ) {
           if ( !this.state.value.length ) {
             return
           }
@@ -46,12 +46,25 @@ export default class Input extends Component {
           return
         }
 
-        if ( event.key.ctrl || event.key.meta || !/^[A-Z]$|^[a-z]$|^[0-9]$|^space$/.test( event.key.name ) ) {
+        if ( event.key.name === 'space' ) {
+          this.setState( prev => {
+            prev.value += ' '
+            return prev
+          })
+          return
+        }
+
+        if ( !event.ch ) {
+          return
+        }
+
+        // if ( event.key.ctrl || event.key.meta || !/^[A-Z]$|^[a-z]$|^[0-9]$|^space$/.test( event.key.name ) ) {
+        if ( event.key.ctrl || event.key.meta || event.ch.length > 1 ) {
           return
         }
 
         this.setState( prev => {
-          prev.value += event.key.sequence
+          prev.value += event.ch
           return prev
         })
       })
