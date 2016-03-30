@@ -1,0 +1,45 @@
+{
+  "name": "koa-chat-example-web-client",
+  "version": "0.0.0",
+  "description": "Web client for the koa-socket chat example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "budo src --live"
+  },
+  "babel": {
+    "presets": [
+      "urban"
+    ]
+  },
+  "browserify": {
+    "transforms": [
+      "babelify"
+    ]
+  },
+  "keywords": [
+    "koa",
+    "koa-socket",
+    "socket",
+    "websocket",
+    "socket.io"
+  ],
+  "author": "Matt Styles <matt@veryfizzyjelly.com> (http://github.com/mattstyles)",
+  "license": "MIT",
+  "dependencies": {
+    "immstruct": "^2.0.0",
+    "immutable": "^3.7.6",
+    "raid": "^0.4.0",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "rx-lite": "^4.0.8"
+  },
+  "devDependencies": {
+    "babel-preset-urban": "^0.4.0",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "budo": "^8.1.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.2"
+  }
+}
